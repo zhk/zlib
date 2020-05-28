@@ -1,6 +1,18 @@
 cmake_minimum_required(VERSION 2.4.4)
 set(CMAKE_ALLOW_LOOSE_LOOP_CONSTRUCTS ON)
 
+include(GNUInstallDirs)
+if(NOT CMAKE_TOOLCHAIN_FILE)
+    if(WIN32 AND NOT CYGWIN)
+        set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Installation Directory")
+    else()
+        set(CMAKE_INSTALL_PREFIX "/usr/local" CACHE PATH "Installation Directory")
+    endif()
+else()
+    # any cross-compiling
+    set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE PATH "Installation Directory")
+endif()
+
 project(zlib C)
 
 set(VERSION "1.2.11")
